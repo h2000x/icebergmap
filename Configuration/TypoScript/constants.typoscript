@@ -1,0 +1,19 @@
+plugin.tx_icebergmap {
+    view {
+        # cat=plugin.tx_icebergmap/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:icebergmap/Resources/Private/Templates/
+        # cat=plugin.tx_icebergmap/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:icebergmap/Resources/Private/Partials/
+        # cat=plugin.tx_icebergmap/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:icebergmap/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_icebergmap//a; type=string; label=Default storage PID
+        storagePid = 21
+    }
+
+    settings {
+        # cat=plugin.tx_icebergmap//a; type=string; label=Url vom TER
+        extensionUrlBase = https://extensions.typo3.org/extension/
+    }
+}

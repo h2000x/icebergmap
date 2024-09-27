@@ -1,0 +1,8 @@
+<Placemark>
+    <name>%NAME</name>
+    <visibility>0</visibility>
+    <styleUrl>#exampleStyleMap</styleUrl>
+    <Point>
+        <coordinates>-122.0856545755255,37.42243077405461,0</coordinates>
+    </Point>
+</Placemark>

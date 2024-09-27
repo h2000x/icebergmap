@@ -1,0 +1,22 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Justabunchof\Icebergmap\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+  Justabunchof\Icebergmap\Command\ReadIcebergCsvCommand:
+    tags:
+      -
+        name: console.command
+        command: 'icebergmap:read-iceberg-csv'
+        description: "Checks if there is a new Iceberg CSV, if true downloads it and write it's data in the database."
+        schedulable: true
+  Justabunchof\Icebergmap\Command\CreateKmlFileCommand:
+    tags:
+      -
+        name: console.command
+        command: 'icebergmap:create-kml-file'
+        description: "Create the iceberg Kml file from data in the database."
+        schedulable: true

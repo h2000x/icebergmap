@@ -1,0 +1,2 @@
+# cat=records/enable/153; type=string; label=LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:extmng.advancedMediaPreview
+title = Icebergmap

@@ -1,0 +1,13 @@
+<Placemark>
+    <name>%NAME%</name>
+    <description>%DESCRIPTION%</description>
+    <styleUrl>#%STYLE%</styleUrl>
+    <LineString>
+        <extrude>1</extrude>
+        <tessellate>1</tessellate>
+        <altitudeMode>absolute</altitudeMode>
+        <coordinates>
+            %COORDINATES%
+        </coordinates>
+    </LineString>
+</Placemark>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2024-07-05T12:00:00Z" product-name="icebergmap">
+        <header/>
+        <body>
+            <!-- Labels for tx_icebergmap_domain_model_icebergdata -->
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata">
+                <source>Iceberg Data</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.iceberg">
+                <source>Iceberg</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.firstappearance">
+                <source>First Appearance</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.latitude">
+                <source>Latitude</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.longitude">
+                <source>Longitude</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.width">
+                <source>Width</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.length">
+                <source>Length</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.squarekm">
+                <source>Square Kilometers</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.datadate">
+                <source>Data Date</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
