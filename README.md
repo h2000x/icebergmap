@@ -14,24 +14,24 @@ d) Anzeigen der KML-Datei im Frontend
 
 ## Programmierung der einzelnen Teile
 
-### a)
-Programmierung fehlt noch.
+### a) GetCsvFileCommand.php
+Es die aktuelle CSV-Datei runtergeladen und dann wird über einen Eintrag in der
+Sys_registry überprüft ob es sich um eine neue Datei handelt, wenn ja wird in der
+Sys_registry das Flag 'hasNewFile' auf true gesetzt und der Inhalt in 'lastFileContent'
+gespeichert.
 
 Es gibt ein möglichkeit alle CSV-Dateien anzuzeigen unter der Funktion:
 https://usicecenter.gov/Products/ArchiveSearchMulti?table=IcebergProducts&linkChange=ant-three
 
-Aber Ziel ist es das das es einen Cronjob gibt der täglich Überprüft ob auf der Seite https://usicecenter.gov/Products/AntarcIcebergs eine 
-neue CSV-Datei gibt.
-
-Todo
-* command anlegen
-* guzzle ausprobieren 
-
-### b)
+### b) ReadIcebergCsvCommand.php
 Dies wird erledigt über das Commando
 ```
 EXT:icebergmap/Classes/Command/ReadIcebergCsvCommand.php
 ```
+
+@TODO: 
+- Programmierung anpassen, weil das CSV-File jetzt ja in Sys-Registry gespeichert ist
+- Programmierung hinzufügen, die das einlesen von CSV-Datei aus einem Verzeichnis ermöglicht.
 
 ## Sys_registy Einträge
 
