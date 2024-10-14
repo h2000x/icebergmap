@@ -10,10 +10,13 @@ use Justabunchof\Icebergmap\Domain\Model\IcebergData;
 use Justabunchof\Icebergmap\Domain\Repository\IcebergRepository;
 use Justabunchof\Icebergmap\Domain\Repository\IcebergDataRepository;
 use Justabunchof\Icebergmap\Service\KmlFileService;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class ReadIcebergCsvCommand extends Command
@@ -22,6 +25,7 @@ class ReadIcebergCsvCommand extends Command
 
     public function __construct(
         private CheckAndReadCsvService $checkAndReadCsvService,
+        private readonly Registry $registry,
         private KmlFileService $kmlFileService,
         private IcebergRepository $icebergRepository,
         private IcebergDataRepository $icebergDataRepository,
@@ -34,21 +38,43 @@ class ReadIcebergCsvCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Checks if there is a new Iceberg CSV, if true downloads it and write it\'s data in the database.');
+        $this
+            ->setDescription('Checks if there is a new Iceberg CSV, if true downloads it and write it\'s data in the database.')
+            ->addOption(
+                'path-name',
+                '-p',
+                InputOption::VALUE_REQUIRED,
+                'Diretory for the csv-files',
+            );;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Do awesome stuff
-//        $csvArray = $this->checkAndReadCsvService->readCsvFileFromApi();
-//        $this->saveData($csvArray);
-        $csvFiles = $this->checkAndReadCsvService->readCsvFiles();
-        if (count($csvFiles) > 0) {
-            foreach ($csvFiles as $single_csv_file) {
+        $path_name = $input->getOption('path-name');
+        if (empty($path_name)) {
+            echo "Ping (1728921078323): ". __LINE__ . "-" . __FILE__  . "<br>\n";
+            if (!$this->hasNewCsvFile()) {
+                return Command::SUCCESS;
+            }
+            $csvString = $this->registry->get('icebergMap','lastFileContent');
+            $csvArray = explode("\n", $csvString);
+            $ok = $this->saveData($csvArray);
+            if ($ok) {
+                $this->registry->set('icebergMap', 'hasNewFile', false);
+            }
+
+        } else {
+            //Liest aus einem Directory
+            $csvFiles = $this->checkAndReadCsvService->readCsvFiles();
+            if (count($csvFiles) > 0) {
+                foreach ($csvFiles as $single_csv_file) {
 //                $csvArray = $this->checkAndReadCsvService->readCsvFileFromDir($single_csv_file);
 //                $this->saveData($csvArray);
+                }
             }
         }
+
         return Command::SUCCESS;
     }
 
@@ -76,7 +102,7 @@ class ReadIcebergCsvCommand extends Command
         $result['longitude'] = $single_row[4];
         return $result;
     }
-    private function saveData(bool|array $csvArray)
+    private function  saveData(bool|array $csvArray): bool
     {
         /**
          * Datastructure
@@ -111,6 +137,9 @@ class ReadIcebergCsvCommand extends Command
 
         
         foreach ($csvArray as $single_row) {
+            if (gettype($single_row) == 'string') {
+                $single_row = explode(',', $single_row);
+            }
             //TODO: Das muss abhängig von der ersten Zeile der CSV-Datei gemacht werden
             $single_data = $this->transformCsvData($single_row);
             if(!$single_data) {
@@ -148,6 +177,7 @@ class ReadIcebergCsvCommand extends Command
                 $this->persistenceManager->persistAll();
             }
         }
+        return true;
     }
 
     private function createIcebergDataObj(Iceberg $iceberg, array $single_date): IcebergData
@@ -173,5 +203,10 @@ class ReadIcebergCsvCommand extends Command
         $dt = new \DateTime();
         $dt->setTimestamp($ts);
         return $dt->modify('+3 hours');
+    }
+
+    private function hasNewCsvFile()
+    {
+        return $this->registry->get('icebergMap', 'hasNewFile');
     }
 }

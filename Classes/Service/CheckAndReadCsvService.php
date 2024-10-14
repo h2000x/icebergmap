@@ -100,7 +100,6 @@ class CheckAndReadCsvService
                 return $part;
             }
         }
-
     }
 
     private function checkCreateWorkingDir()

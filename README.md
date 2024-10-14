@@ -28,10 +28,25 @@ Dies wird erledigt über das Commando
 ```
 EXT:icebergmap/Classes/Command/ReadIcebergCsvCommand.php
 ```
+Es gibt zwei Quellen aus denen die CSV-Datei gelesen werden können:
+* Die Daten die über ``GetCsvFileCommand`` in die Sys_registry gespeichert werden.
+* Die Csv-Files auslesen die sich in dem Verzeichnis befinden, die über die Option 
+``-p`` dem Comando ``icebergmap:read-iceberg-csv`` mitgegeben wird.
 
-@TODO: 
-- Programmierung anpassen, weil das CSV-File jetzt ja in Sys-Registry gespeichert ist
-- Programmierung hinzufügen, die das einlesen von CSV-Datei aus einem Verzeichnis ermöglicht.
+Die Daten werden in den Tabellen 
+- tx_icebergmap_domain_model_iceberg
+- tx_icebergmap_domain_model_icebergdata
+
+gespeichert. Beim speichern der Daten in  ``tx_icebergmap_domain_model_icebergdata``
+wird überprüft ob bereits Daten zu diesem Datum gespeichert wurden und wenn das der 
+Fall ist werden die Daten nicht gespeichert. D.h. der Befehl kann mehrmals ausgeführt
+werden, aber es besteht keine Gefahr das doppelte Daten entstehen.
+
+
+**@TODO:** 
+- Programmierung hinzufügen, das die path-name-Option benutzt wird um ein ganzes Verzeichnis
+einzufügen
+
 
 ## Sys_registy Einträge
 
