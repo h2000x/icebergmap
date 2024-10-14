@@ -20,3 +20,10 @@ services:
         command: 'icebergmap:create-kml-file'
         description: "Create the iceberg Kml file from data in the database."
         schedulable: true
+  Justabunchof\Icebergmap\Command\GetCsvFileCommand:
+    tags:
+      -
+        name: console.command
+        command: 'icebergmap:get-csv-file'
+        description: "Checks for a new iceberg csf file at usicecenter.gov."
+        schedulable: true

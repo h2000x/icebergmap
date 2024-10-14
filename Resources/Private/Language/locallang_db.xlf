@@ -31,6 +31,12 @@
             <trans-unit id="tx_icebergmap_domain_model_icebergdata.datadate">
                 <source>Data Date</source>
             </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.no_new_csv_file">
+                <source>Keine Neue CSV-File vorhanden.</source>
+            </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.new_csv_file_found">
+                <source>Neue CSV-File gefunden: </source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
