@@ -45,8 +45,6 @@ class IcebergCsvRequester
             );
         }
 
-        echo "Ping (1728156454007): ". __LINE__ . "-" . __FILE__  . "<br>\n";
-
         if ($response->getHeaderLine('Content-Type') !== 'application/octet-stream') {
             throw new \RuntimeException(
                 'The request did not return application/octet-stream data',

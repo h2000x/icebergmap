@@ -32,6 +32,11 @@ class GetCsvFileCommand extends Command
         $csvFilename = $this->icebergCsvRequester->getFilename();
         if ($this->checklastFilename($csvFilename)) {
             $this->addFlashMessage('tx_icebergmap_domain_model_icebergdata.new_csv_file_found', $this->getLastFilename(), ContextualFeedbackSeverity::OK);
+            $this->registry->set(
+                'icebergMap',
+                'lastFileContent',
+                $this->icebergCsvRequester->getContent()
+            );
         } else {
             $this->addFlashMessage('tx_icebergmap_domain_model_icebergdata.no_new_csv_file');
         }
@@ -70,7 +75,6 @@ class GetCsvFileCommand extends Command
 
     private function addFlashMessage(string $msgTag, $additionalInfo = '', $severity = ContextualFeedbackSeverity::INFO): void
     {
-        echo "Ping (1728890096338): ". __LINE__ . "-" . __FILE__  . "<br>\n";
         $message = GeneralUtility::makeInstance(
             FlashMessage::class,
             $this->getTranslationService->translate($msgTag) . ' ' . $additionalInfo,
