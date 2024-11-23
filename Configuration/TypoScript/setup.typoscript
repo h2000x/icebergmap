@@ -2,6 +2,16 @@ module.tx_icebergmap {
     settings {
         storagePid = {$plugin.tx_icebergmap.persistence.storagePid}
     }
+
+    view {
+        # cat=plugin.tx_icebergmap/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:icebergmap/Resources/Private/Templates/
+        # cat=plugin.tx_icebergmap/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:icebergmap/Resources/Private/Partials/
+        # cat=plugin.tx_icebergmap/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:icebergmap/Resources/Private/Layouts/
+    }
+
 }
 
 # these classes are only used in auto-generated templates

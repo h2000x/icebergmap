@@ -13,6 +13,7 @@ class Iceberg extends AbstractEntity
      */
     protected string $name = '';
 
+    protected array $icebergData;
 
     /**
      * firstappearance
@@ -49,5 +50,15 @@ class Iceberg extends AbstractEntity
     public function setFirstappearance(\DateTime $firstappearance): void
     {
         $this->firstappearance = $firstappearance;
+    }
+
+    public function setIcebergData($icebergData)
+    {
+        $this->icebergData = $icebergData;
+    }
+
+    public function getIcebergData()
+    {
+        return $this->icebergData;
     }
 }
