@@ -45,7 +45,8 @@ class IcebergDataRepository extends Repository
     public function initializeObject(
         DataMapper $dataMapper,
         ConfigurationManager $configurationManager
-    ) {
+    ): void
+    {
         $this->dataMapper = $dataMapper;
         $this->configurationManager = $configurationManager;
 
@@ -112,5 +113,18 @@ class IcebergDataRepository extends Repository
         }
 
         return $result->fetchAllAssociativeIndexed();
+    }
+
+    public function countDatadates()
+    {
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($this->tableName);
+        $result = $queryBuilder
+            ->select('datadate')
+            ->from($this->tableName)
+            ->groupBy('datadate')
+            ->executeQuery();
+
+        return $result->rowCount();
     }
 }

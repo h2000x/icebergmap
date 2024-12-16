@@ -47,7 +47,7 @@ werden, aber es besteht keine Gefahr das doppelte Daten entstehen.
 - Programmierung hinzufügen, das die path-name-Option benutzt wird um ein ganzes Verzeichnis
 einzufügen
 - Widget programmieren für die Anzeige der Anzahl der CsvFiles und für das Datum des letzten Files.
-- Den Eintrag in die SysRegisty programmieren
+- DONE: Den Eintrag wieviele CSV-Datateien eingeleseen wurde in die SysRegisty programmieren
 - Eintrag in die sys_registry wie der Name des zuletzt erstellen kml-File ist 
 
 

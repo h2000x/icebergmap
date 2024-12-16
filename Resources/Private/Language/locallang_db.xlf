@@ -37,6 +37,9 @@
             <trans-unit id="tx_icebergmap_domain_model_icebergdata.new_csv_file_found">
                 <source>Neue CSV-File gefunden: </source>
             </trans-unit>
+            <trans-unit id="tx_icebergmap_domain_model_icebergdata.number_of_csv_files_found">
+                <source>Number of found CSV-Files: </source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

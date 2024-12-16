@@ -9,6 +9,7 @@ use Justabunchof\Icebergmap\Domain\Model\Iceberg;
 use Justabunchof\Icebergmap\Domain\Model\IcebergData;
 use Justabunchof\Icebergmap\Domain\Repository\IcebergRepository;
 use Justabunchof\Icebergmap\Domain\Repository\IcebergDataRepository;
+use Justabunchof\Icebergmap\Service\GetTranslationService;
 use Justabunchof\Icebergmap\Service\KmlFileService;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,7 +17,11 @@ use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Registry;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class ReadIcebergCsvCommand extends Command
@@ -30,6 +35,7 @@ class ReadIcebergCsvCommand extends Command
         private IcebergRepository $icebergRepository,
         private IcebergDataRepository $icebergDataRepository,
         private PersistenceManager $persistenceManager,
+        private GetTranslationService $getTranslationService,
         string                            $name = null
     )
     {
@@ -53,8 +59,9 @@ class ReadIcebergCsvCommand extends Command
         // Do awesome stuff
         $path_name = $input->getOption('path-name');
         if (empty($path_name)) {
-            echo "Ping (1728921078323): ". __LINE__ . "-" . __FILE__  . "<br>\n";
             if (!$this->hasNewCsvFile()) {
+                $numberOfCsvFiles = $this->registry->get('icebergMap', 'numberOfCsvFiles');
+                $this->addFlashMessage('tx_icebergmap_domain_model_icebergdata.number_of_csv_files_found',$numberOfCsvFiles );
                 return Command::SUCCESS;
             }
             $csvString = $this->registry->get('icebergMap','lastFileContent');
@@ -62,6 +69,9 @@ class ReadIcebergCsvCommand extends Command
             $ok = $this->saveData($csvArray);
             if ($ok) {
                 $this->registry->set('icebergMap', 'hasNewFile', false);
+                $numberOfCsvFiles = $this->icebergDataRepository->countDatadates();
+                $this->registry->set('icebergMap', 'numberOfCsvFiles', $numberOfCsvFiles );
+                $this->addFlashMessage('tx_icebergmap_domain_model_icebergdata.number_of_csv_files_found',$numberOfCsvFiles );
             }
 
         } else {
@@ -209,4 +219,18 @@ class ReadIcebergCsvCommand extends Command
     {
         return $this->registry->get('icebergMap', 'hasNewFile');
     }
+
+    private function addFlashMessage(string $msgTag, $additionalInfo = '', $severity = ContextualFeedbackSeverity::INFO): void
+    {
+        $message = GeneralUtility::makeInstance(
+            FlashMessage::class,
+            $this->getTranslationService->translate($msgTag) . ' ' . $additionalInfo,
+            '',
+            $severity
+        );
+        $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+        $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
+        $defaultFlashMessageQueue->enqueue($message);
+    }
+
 }
