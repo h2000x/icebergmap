@@ -1,2 +1,6 @@
-# cat=records/enable/153; type=string; label=LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:extmng.advancedMediaPreview
+# Settings
+###########################
+# cat=settings/enable/10; type=string; label=LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:extmng.advancedMediaPreview
 title = Icebergmap
+# cat=settings/enable/20; type=string; label=Path within fileadmin to save the kml-File
+kmlSavePath =
