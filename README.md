@@ -46,6 +46,9 @@ werden, aber es besteht keine Gefahr das doppelte Daten entstehen.
 **@TODO:** 
 - Programmierung hinzufügen, das die path-name-Option benutzt wird um ein ganzes Verzeichnis
 einzufügen
+- Widget programmieren für die Anzeige der Anzahl der CsvFiles und für das Datum des letzten Files.
+- Den Eintrag in die SysRegisty programmieren
+- Eintrag in die sys_registry wie der Name des zuletzt erstellen kml-File ist 
 
 
 ## Sys_registy Einträge
@@ -61,3 +64,12 @@ Kommando weiß das es einen neue Datei gibt.
 
 **entry_key: lastFileContent**\
 Der Inhalt der herunter geladenen Datei.
+
+**entry_key: numberOfCsvFiles**\
+Anzahl der CSV-Files die ausgewertet wurden
+
+**entry_key: dateOfLastCsvFile**\
+Datum des letzten CSV-Files was runtergeladen wurde.
+
+
+
