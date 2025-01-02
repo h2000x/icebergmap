@@ -61,6 +61,9 @@ class ReadIcebergCsvCommand extends Command
         if (empty($path_name)) {
             if (!$this->hasNewCsvFile()) {
                 $numberOfCsvFiles = $this->registry->get('icebergMap', 'numberOfCsvFiles');
+                if (!$numberOfCsvFiles) {
+                    $numberOfCsvFiles = $this->setNumberOfCsvFiles();
+                }
                 $this->addFlashMessage('tx_icebergmap_domain_model_icebergdata.number_of_csv_files_found',$numberOfCsvFiles );
                 return Command::SUCCESS;
             }
@@ -73,7 +76,6 @@ class ReadIcebergCsvCommand extends Command
                 $this->registry->set('icebergMap', 'numberOfCsvFiles', $numberOfCsvFiles );
                 $this->addFlashMessage('tx_icebergmap_domain_model_icebergdata.number_of_csv_files_found',$numberOfCsvFiles );
             }
-
         } else {
             //Liest aus einem Directory
             $csvFiles = $this->checkAndReadCsvService->readCsvFiles();
@@ -231,6 +233,18 @@ class ReadIcebergCsvCommand extends Command
         $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
         $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
         $defaultFlashMessageQueue->enqueue($message);
+    }
+
+    /**
+     * This function is only need it there is  no numberOfCsvFiles saved yet.
+     *
+     * @return int
+     */
+    private function setNumberOfCsvFiles(): int
+    {
+        $numberOfCsvFiles = $this->icebergDataRepository->countDatadates();
+        $this->registry->set('icebergMap', 'numberOfCsvFiles', $numberOfCsvFiles );
+        return $numberOfCsvFiles;
     }
 
 }
