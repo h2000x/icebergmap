@@ -1,9 +1,40 @@
 <Style id="yellowLineGreenPoly">
     <LineStyle>
-    <color>ffaafffff</color>
-    <width>1</width>
+        <color>ffaafffff</color>
+        <width>1</width>
     </LineStyle>
     <PolyStyle>
-    <color>ff00ff00</color>
+        <color>ff00ff00</color>
     </PolyStyle>
 </Style>
+<Style id="highlightPlacemark">
+    <IconStyle>
+        <Icon>
+            <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+        </Icon>
+    </IconStyle>
+</Style>
+<Style id="normalPlacemark">
+    <IconStyle>
+        <Icon>
+            <href>https://maps.google.com/mapfiles/kml/paddle/wht-blank-lv.png</href>
+        </Icon>
+    </IconStyle>
+</Style>
+<Style id="icebergPlacemark">
+    <IconStyle>
+        <Icon>
+            <href>https://maps.gstatic.com/mapfiles/ms2/micons/blue.png</href>
+        </Icon>
+    </IconStyle>
+</Style>
+<StyleMap id="dataStyleMap">
+    <Pair>
+        <key>normal</key>
+        <styleUrl>#normalPlacemark</styleUrl>
+    </Pair>
+    <Pair>
+        <key>highlight</key>
+        <styleUrl>#highlightPlacemark</styleUrl>
+    </Pair>
+</StyleMap>

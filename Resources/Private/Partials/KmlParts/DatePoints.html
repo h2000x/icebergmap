@@ -1,0 +1,45 @@
+<f:for each="{icebergs}" as="iceberg">
+    <f:for each="{iceberg.icebergData}" as="coordinate" iteration="loopInformation">
+        <f:if condition="!{loopInformation.isLast}">
+            <f:then>
+                <Placemark>
+                    <name><f:format.date format="d.m.Y">{coordinate.datadate}</f:format.date></name>
+                    <styleUrl>#dataStyleMap</styleUrl>
+                    <Point>
+                        <coordinates>{coordinate.longitude},{coordinate.latitude},0</coordinates>
+                    </Point>
+                    <ExtendedData>
+                        <Data name="Date">
+                            <displayName>Date</displayName>
+                            <value><f:format.date format="d.m.Y">{coordinate.datadate}</f:format.date></value>
+                        </Data>
+                        <Data name="Iceberg">
+                            <displayName>Iceberg</displayName>
+                            <value>{iceberg.name}</value>
+                        </Data>
+                    </ExtendedData>
+                </Placemark>
+            </f:then>
+            <f:else>
+                <Placemark>
+                    <name>{iceberg.name}</name>
+                    <styleUrl>#icebergPlacemark</styleUrl>
+                    <Point>
+                        <coordinates>{coordinate.longitude},{coordinate.latitude},0</coordinates>
+                    </Point>
+                    <ExtendedData>
+                        <Data name="Date">
+                            <displayName>Date</displayName>
+                            <value><f:format.date format="d.m.Y">{coordinate.datadate}</f:format.date></value>
+                        </Data>
+                        <Data name="Iceberg">
+                            <displayName>Iceberg</displayName>
+                            <value>{iceberg.name}</value>
+                        </Data>
+                    </ExtendedData>
+                </Placemark>
+
+            </f:else>
+        </f:if>
+    </f:for>
+</f:for>
