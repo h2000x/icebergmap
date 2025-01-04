@@ -1,1 +1,53 @@
-PING Hier
+<f:asset.css identifier="leaflet.css" href="EXT:icebergmap/Resources/Public/Css/leaflet.css" />
+<f:asset.script identifier="leaflet" src="EXT:icebergmap/Resources/Public/JavaScript/Libs/leaflet.js" />
+<f:asset.script identifier="leaflet-omnivore" src="EXT:icebergmap/Resources/Public/JavaScript/Libs/leaflet-omnivore.0.3.4.min.js" />
+<div id="map" style="width: 100%; height: 500px;"></div>
+
+<f:asset.script identifier="icebergmap">
+    <f:alias map="{ocb: '{', ccb: '}'}">
+    var map = L.map('map').setView([{startingPoint}], {startingZoom});
+
+    // OSM Tiles
+    L.tileLayer('https://{ocb}s{ccb}.tile.openstreetmap.org/{ocb}z{ccb}/{ocb}x{ccb}/{ocb}y{ccb}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+    var iconData = L.icon({ocb}
+        iconUrl: "https://maps.google.com/mapfiles/kml/paddle/wht-blank-lv.png",
+        iconSize: [20, 20]
+    {ccb});
+
+    var iconIceberg = L.icon({ocb}
+        iconUrl: "https://maps.gstatic.com/mapfiles/ms2/micons/blue.png",
+        iconSize: [20, 20]
+    {ccb});
+
+
+    var establecimientos = L.geoJson(null, {ocb}
+        onEachFeature: function (feature, layer) {
+        // console.log(feature);
+        // console.log(feature.properties.styleUrl);
+        var popupContent = feature.properties["name"];
+        if (feature.properties["description"]) {
+        popupContent += '<br>' + feature.properties["description"];
+        }
+        layer.bindPopup( popupContent );
+
+        },
+        pointToLayer: function (feature, latlng) {
+        // console.log("HIER");
+        // console.log(feature.properties["styleUrl"]);
+        if (feature.properties["styleUrl"] == '#dataStyleMap') {
+            return L.marker(latlng, { icon: iconData });
+        } else {
+            return L.marker(latlng, { icon: iconIceberg });
+        }
+
+        }
+        {ccb});
+
+    // KML Datei laden
+    omnivore
+    .kml('{kmlFile}',null, establecimientos)
+    .addTo(map);
+    </f:alias>
+</f:asset.script>

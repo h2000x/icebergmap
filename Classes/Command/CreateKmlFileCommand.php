@@ -9,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Resource\DuplicationBehavior;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
@@ -58,6 +59,7 @@ class CreateKmlFileCommand extends Command
             $file_path,
             $folder,
             'iceberg.kml',
+            DuplicationBehavior::REPLACE
         );
         
 //        echo '$newFile' . "<br>\n";
