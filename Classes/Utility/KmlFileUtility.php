@@ -20,14 +20,13 @@ class KmlFileUtility
     {
 
     }
+    
     public function renderTemplate()
     {
         $icebergs = $this->getAllIcebergData();
         // Instanz der StandaloneView erstellen
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setPartialRootPaths(['EXT:icebergmap/Resources/Private/Partials']);
-
-
 
         // Fluid-Template-Datei festlegen
         $view->setTemplatePathAndFilename('EXT:icebergmap/Resources/Private/Templates/KmlTemplate.xml');
@@ -41,7 +40,6 @@ class KmlFileUtility
         // Template rendern und als HTML zurückgeben
         return $view->render();
     }
-
     private function getAllIcebergData()
     {
         $icebergs = $this->icebergRepository->findAll();
@@ -51,22 +49,8 @@ class KmlFileUtility
         }
         return $result;
     }
-
     private function getDataForIceberg(mixed $single_iceberg)
     {
         return $this->icebergDataRepository->findDataSortByDate($single_iceberg);
-
-//        $coordinates = '';
-//        foreach ($single_iceberg_data as $single_data_point) {
-//            $coordinates .= $single_data_point['longitude'] . ', ' . $single_data_point['latitude'] . ',0' . "\n";
-//
-//        }
-//
-//        return str_replace(
-//            ['%NAME%','%DESCRIPTION%','%STYLE%','%COORDINATES%'],
-//            [$iceberg->getName(),'', $this->default_line_style ,$coordinates],
-//            $kml_placemark
-//        );
-
     }
 }
