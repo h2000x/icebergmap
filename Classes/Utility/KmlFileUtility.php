@@ -20,7 +20,7 @@ class KmlFileUtility
     {
 
     }
-    
+
     public function renderTemplate()
     {
         $icebergs = $this->getAllIcebergData();
