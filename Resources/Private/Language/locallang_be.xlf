@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-13T15:49:07Z" product-name="icebergmap">
+		<header/>
+		<body>
+			<trans-unit id="extmng.title" resname="extmng.title">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="extmng.startingPoint" resname="extmng.startingPoint">
+				<source>Starting Point: Lng Lat Coordinate for the middle of the map.</source>
+			</trans-unit>
+			<trans-unit id="extmng.startingZoom" resname="extmng.startingZoom">
+				<source>Starting Zoom: Zoom Level for OpenStreetMap</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

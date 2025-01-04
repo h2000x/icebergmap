@@ -1,6 +1,10 @@
 # Settings
 ###########################
-# cat=settings/enable/10; type=string; label=LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:extmng.advancedMediaPreview
+# cat=settings/enable/10; type=string; label=LLL:EXT:icebergmap/Resources/Private/Language/locallang_be.xlf:extmng.title
 title = Icebergmap
 # cat=settings/enable/20; type=string; label=Path within fileadmin to save the kml-File
 kmlSavePath =
+# cat=settings/enable/30; type=string; label=LLL:EXT:icebergmap/Resources/Private/Language/locallang_be.xlf:extmng.startingPoint
+startingPoint = -58.76,-45.65
+# cat=settings/enable/40; type=int; label=LLL:EXT:icebergmap/Resources/Private/Language/locallang_be.xlf:extmng.startingZoom
+startingZoom = 3
