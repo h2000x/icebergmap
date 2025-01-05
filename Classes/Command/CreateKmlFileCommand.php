@@ -42,10 +42,15 @@ class CreateKmlFileCommand extends Command
     {
         //@todo Es braucht noch ein Prüfrung ob ein neues KML-File erzeugt werden muss.
         $xmlOutput = $this->kmlFileUtility->renderTemplate();
-        $ok = file_put_contents($this->data_path . 'iceberg.tmp.xml', $xmlOutput);
-        $this->storeFile($this->data_path . 'iceberg.tmp.xml');
+        if ($this->checkIcebergTmpFolder()) {
+            $ok = file_put_contents($this->data_path . 'iceberg.tmp.xml', $xmlOutput);
+            $this->storeFile($this->data_path . 'iceberg.tmp.xml');
+            return Command::SUCCESS;
+        }
+        return Command::FAILURE;
+        //Old method
 //        $this->kmlFileService->createKmlFile();
-        return Command::SUCCESS;
+
     }
 
     private function storeFile(string $file_path)
@@ -76,5 +81,13 @@ class CreateKmlFileCommand extends Command
             return true;
         }
         mkdir($kmlSavePath, 0755);
+    }
+
+    private function checkIcebergTmpFolder(): bool
+    {
+        if (is_dir($this->data_path)) {
+            return true;
+        }
+        mkdir($this->data_path, 0755);
     }
 }
